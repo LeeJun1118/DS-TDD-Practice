@@ -146,12 +146,31 @@ public class MyList<T> implements List<T> {
 
     @Override
     public T remove(int index) {
-        return null;
+
+        if (index < 0 || index > size)
+            throw new IndexOutOfBoundsException();
+
+        T old = get(index);
+
+        //ÀçÁ¤·Ä
+        for (int i = size-1; i > index; i--){
+
+            array[i-1] = array[i];
+        }
+
+        return old;
     }
 
     @Override
     public boolean remove(Object o) {
-        return false;
+        if (!o.equals(array[0]))
+            return false;
+
+        for (int i = size-1; i > 0; i--){
+
+            array[i-1] = array[i];
+        }
+        return true;
     }
 
 

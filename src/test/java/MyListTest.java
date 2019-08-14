@@ -44,4 +44,29 @@ public class MyListTest {
         assertEquals(myList.size(),2);
 
     }
+
+    @Test
+    public void testMyListRemove(){
+        MyList<String> myList = new MyList<>();
+        myList.add("World0");
+        myList.add("World1");
+        myList.add("World2");
+
+
+        myList.remove("World0");
+        assertEquals(myList.get(0),"World1");
+    }
+
+    @Test
+    public void testMyListRemoveIndex(){
+        MyList<String> myList = new MyList<>();
+        myList.add("World0");
+        myList.add("World1");
+        myList.add("World2");
+        myList.add("World3");
+
+        myList.remove(2);
+
+        assertEquals(myList.get(2),"World3");
+    }
 }
