@@ -5,6 +5,7 @@ public class MyList<T> implements List<T> {
     private T[] array;
     private int size;
 
+    //생성자는 필드에 초기값을 할당하기 위해 사용한다
     public MyList() {
         this.array = (T[]) new Object[1]; //형변환(Casting)
         this.size = 0;
@@ -21,10 +22,14 @@ public class MyList<T> implements List<T> {
         return size == 0;
     }
 
+    @Override
+    public void clear() {
+        size = 0;
+    }
+
 
     @Override
     public boolean add(T element) {
-
 
         if(size >= array.length){
 
@@ -39,75 +44,6 @@ public class MyList<T> implements List<T> {
 
     }
 
-    @Override
-    public boolean addAll(Collection<? extends T> c) {
-        //Collection 타입이어야 하는데 String만 된다 String으로 한정 시킨다
-        //Collection중에 String타입만 된다는 말
-
-        boolean flag = true;
-
-        for (T element : c){
-            flag &= add(element); // &=
-        }
-        return false;
-    }
-
-    @Override
-    public boolean addAll(int index, Collection<? extends T> c) {
-
-        //TODO: 나중에 구현해보자
-        throw new UnsupportedOperationException();
-
-    }
-
-
-    @Override
-    public boolean contains(Object o) {
-        //존재하는지 아닌지,포함되있는지 아닌지를 판단하는거다
-        //배열 기반으로 뭘 하는 건 index를 어떻게 조작하는지에 달려있다.
-        //index는 경계조건으로부터 시작한다.
-
-
-        return indexOf(o) != -1;
-    }
-    @Override
-    public boolean containsAll(Collection<?> c) {
-        for (Object element : c){
-            if(!contains(element))return false;
-        }
-
-        return false;
-    }
-
-
-    @Override
-    public boolean remove(Object o) {
-        return false;
-    }
-
-
-
-    @Override
-    public boolean removeAll(Collection<?> c) {
-        return false;
-    }
-
-    @Override
-    public boolean retainAll(Collection<?> c) {
-        return false;
-    }
-
-    @Override
-    public void clear() {
-
-        size = 0;
-    }
-
-
-    @Override
-    public T set(int index, T element) {
-        return null;
-    }
 
     @Override
     public void add(int index, T element) {
@@ -117,6 +53,10 @@ public class MyList<T> implements List<T> {
         //index 재정렬(배열을 촘촘하게 맞춘다)
 
 
+        //경계조건
+        if (index < 0 || index > size) {
+            throw new IndexOutOfBoundsException();
+        }
 
         //추가
         add(element);
@@ -127,7 +67,55 @@ public class MyList<T> implements List<T> {
             array[i] = array[i-1];
         }
         array[index] = element;
+    }
 
+    @Override
+    public boolean addAll(Collection<? extends T> c) {
+        //Collection 타입이어야 하는데 String만 된다 String으로 한정 시킨다
+        //Collection중에 String타입만 된다는 말
+
+        boolean flag = true;
+
+        for (T element : c){
+            flag &= add(element); // &= addAll을 다 넣을 건데
+        }
+        return flag;
+    }
+
+    @Override
+    public boolean addAll(int index, Collection<? extends T> c) {
+
+        //TODO: 나중에 구현해보자
+        throw new UnsupportedOperationException();
+
+    }
+    @Override
+    public int indexOf(Object object) {
+        //생각많이 해야한다.
+        //java에서 == 은 reference(주소) 랑 동격이다. 값 비교할때는 equals써야한다.
+        for (int i = 0; i < size; i++){
+            if(equals(object,array[i]))
+                return i;
+        }
+        return -1;
+    }
+
+    @Override
+    public boolean contains(Object object) {
+        //존재하는지 아닌지,포함되있는지 아닌지를 판단하는거다
+        //배열 기반으로 뭘 하는 건 index를 어떻게 조작하는지에 달려있다.
+        //index는 경계조건으로부터 시작한다.
+
+
+        return indexOf(object) != -1;
+    }
+    @Override
+    public boolean containsAll(Collection<?> c) {
+        for (Object element : c){
+            if(!contains(element))return false;
+        }
+
+        return false;
     }
     @Override
     public T get(int index) {
@@ -138,6 +126,14 @@ public class MyList<T> implements List<T> {
         }
 
         return array[index];
+    }
+
+
+    @Override
+    public T set(int index, T element) {
+        T old = get(index);
+        array[index] = element;
+        return null;
     }
 
     private boolean equals(Object target, Object element){
@@ -154,15 +150,17 @@ public class MyList<T> implements List<T> {
     }
 
     @Override
-    public int indexOf(Object o) {
-        //생각많이 해야한다.
-        //java에서 == 은 reference(주소) 랑 동격이다. 값 비교할때는 equals써야한다.
-        for (int i = 0; i < size; i++){
-            if(equals(o,array[i]))
-                return i;
-        }
-        return -1;
+    public boolean remove(Object o) {
+        return false;
     }
+
+
+
+    @Override
+    public boolean removeAll(Collection<?> c) {
+        return false;
+    }
+
 
     @Override
     public int lastIndexOf(Object o) {
@@ -198,6 +196,12 @@ public class MyList<T> implements List<T> {
     @Override
     public <T> T[] toArray(T[] a) {
         return null;
+    }
+
+
+    @Override
+    public boolean retainAll(Collection<?> c) {
+        return false;
     }
 
 

@@ -16,7 +16,7 @@ public class MyListTest {
 
     @Test
     public void testMyListAdd(){
-        MyList<String> myList = new MyList<String>();
+        MyList<String> myList = new MyList();
         myList.add("Hello");
         myList.add("World");
         assertEquals(myList.size(),2);
@@ -30,6 +30,7 @@ public class MyListTest {
         myList.add("World");
         myList.add(1,"Java");
         assertEquals(myList.get(1), "Java");
+
     }
 
     @Test
