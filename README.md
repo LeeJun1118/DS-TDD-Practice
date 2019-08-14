@@ -5,7 +5,8 @@
 * JDK >= 8.x
 * IntelliJ
 
-## TODD
+## TODO
 
 -[ ] remove
+
 -[ ] iterator
