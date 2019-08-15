@@ -46,15 +46,21 @@ public class MyListTest {
     }
 
     @Test
-    public void testMyListRemove(){
+    public void testMyListRemoveObject(){
         MyList<String> myList = new MyList<>();
-        myList.add("World0");
-        myList.add("World1");
-        myList.add("World2");
+        myList.add("a");
+        myList.add("b");
+        myList.add("c");
 
+        myList.remove("c");
 
-        myList.remove("World0");
-        assertEquals(myList.get(0),"World1");
+        System.out.println(myList.get(0));
+        System.out.println(myList.get(1));
+        System.out.println(myList.get(2));
+
+//        assertEquals(myList.get(0),"a");
+//        assertEquals(myList.get(1),"b");
+//        assertEquals(myList.get(2),"c");
     }
 
     @Test
@@ -65,8 +71,16 @@ public class MyListTest {
         myList.add("World2");
         myList.add("World3");
 
-        myList.remove(2);
 
-        assertEquals(myList.get(2),"World3");
+        myList.remove(2);
+        myList.remove(1);
+
+        //assertEquals(myList.get(2),"World3");
+
+        System.out.println(myList.get(0));
+        System.out.println(myList.get(1));
+        System.out.println(myList.get(2));
+        //System.out.println(myList.get(3));
+        //System.out.println(myList.get(4));
     }
 }
