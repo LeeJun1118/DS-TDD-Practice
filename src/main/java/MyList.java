@@ -61,7 +61,7 @@ public class MyList<T> implements List<T> {
         //추가
         add(element);
 
-        //재정렬
+        //재정렬 --공간을 벌려서 인덱스번째의 자리를 만들어줌
         for (int i = size - 1; i > index; i--) {
 
             array[i] = array[i - 1];
@@ -153,15 +153,23 @@ public class MyList<T> implements List<T> {
         if (index < 0 || index > size)
             throw new IndexOutOfBoundsException();
 
-        T old = get(index);
+        /*if (array.length%2==0 && array.length/2 >= size){
+            T[] smaller = (T[]) new Object[array.length / 2];
+
+            System.arraycopy(array, 0, smaller, 0, array.length);//deep Copy 값을 복사
+            array = smaller; //shallow copy 객체의 주소를 복사 반드시 있어야 한다.
+        }*/
+
+        T old = array[index];
 
         //재정렬
-        for (int i = size-1; i > index; i--) {
+        for (int i = index+1 ; i  < size; i++) {
 
             array[i-1] = array[i];
         }
-        array[size-1] = null;
+
         size--;
+        array[size] = null;
 
         return old;
     }
@@ -169,19 +177,26 @@ public class MyList<T> implements List<T> {
     @Override
     public boolean remove(Object o) {
         //Object o 와 같은 값 찾아서 삭제
-        for (int i = 0; i < size-1; i++){
+
+        for (int i = 0; i < size; i++){
 
             if (equals(o,array[i])){
                 remove(i);
+                return true;
             }
         }
-        return true;
+        return false;
     }
 
 
     @Override
-    public boolean removeAll(Collection<?> c) {
-        return false;
+    public boolean removeAll(Collection<?> c)
+    {
+        for (int i = 0; i < size; i++)
+        {
+            remove(i);
+        }
+        return true;
     }
 
 
