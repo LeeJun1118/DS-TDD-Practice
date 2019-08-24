@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="MyListTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2019-08-09T06:35:37" hostname="DESKTOP-ACN85AT" time="0.001">
+<testsuite name="MyListTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2019-08-21T07:15:30" hostname="DESKTOP-ACN85AT" time="0.005">
   <properties/>
-  <testcase name="testMyListAddAll" classname="MyListTest" time="0.001"/>
-  <system-out><![CDATA[]]></system-out>
+  <testcase name="testMyListRemoveIndex" classname="MyListTest" time="0.005"/>
+  <system-out><![CDATA[World0
+World3
+null
+]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

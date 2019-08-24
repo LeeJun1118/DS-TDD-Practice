@@ -44,4 +44,53 @@ public class MyListTest {
         assertEquals(myList.size(),2);
 
     }
+
+    @Test
+    public void testMyListRemoveObject(){
+        MyList<String> myList = new MyList<>();
+        myList.add("a");
+        myList.add("b");
+        myList.add("c");
+
+        myList.remove("c");
+
+
+        assertEquals(myList.size(),4);
+
+    }
+
+    @Test
+    public void testMyListRemoveIndex(){
+        MyList<String> myList = new MyList<>();
+        myList.add("World0");
+        myList.add("World1");
+        myList.add("World2");
+        myList.add("World3");
+
+
+        myList.remove(2);
+        myList.remove(1);
+
+        assertEquals(myList.get(1),"World3");
+        assertEquals(myList.size(),4);
+
+        System.out.println(myList.get(0));
+        System.out.println(myList.get(1));
+        System.out.println(myList.get(2));
+        //System.out.println(myList.get(3));
+        //System.out.println(myList.get(4));
+    }
+
+    @Test
+    public void testMyListRemoveAll(){
+        MyList<String>  myList = new MyList<>();
+
+        myList.add("World0");
+        myList.add("World1");
+        myList.add("World2");
+        myList.add("World3");
+
+
+
+    }
 }
