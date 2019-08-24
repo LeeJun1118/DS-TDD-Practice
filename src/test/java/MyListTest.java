@@ -120,7 +120,10 @@ public class MyListTest {
 
 
         myList.containsAll(list);
-        //list 는 최상위 List
+
+        //list 는 최상위 List ContainsAll이 없고 ArrayList에는 있다.
+        //객체가 생성이 안되도 NullPointException이 난다.
+
         //list.containsAll(myList); //  --에러 => 이건 왜 에러가 나는지 모르겠다. 자료형 문제인 것으로 어렴풋이 추측된다.
 
         assertEquals(myList.get(0),list.get(0));
