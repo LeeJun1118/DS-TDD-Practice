@@ -117,6 +117,8 @@ public class MyList<T> implements List<T> {
 
     @Override
     public boolean containsAll(Collection<?> c) {
+
+        //Collection으로 오는 원소들이 myList에 있는 원소인지 검사한다.
         for (Object element : c) {
             if (!contains(element)) return false;
         }
