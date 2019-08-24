@@ -31,6 +31,7 @@ public class MyList<T> implements List<T> {
     @Override
     public boolean add(T element) {
 
+        //List가 가득차게 된다면
         if (size >= array.length) {
 
             T[] bigger = (T[]) new Object[array.length * 2];
@@ -52,7 +53,6 @@ public class MyList<T> implements List<T> {
         //추가
         //index 재정렬(배열을 촘촘하게 맞춘다)
 
-
         //경계조건
         if (index < 0 || index > size) {
             throw new IndexOutOfBoundsException();
@@ -61,23 +61,27 @@ public class MyList<T> implements List<T> {
         //추가
         add(element);
 
-        //재정렬 --공간을 벌려서 인덱스번째의 자리를 만들어줌
+        //재정렬 --> 추가할 element가 들어갈 공간을 위해 기존의 index번째부터 뒤로 한칸씩 이동하시켜 공간 확보
         for (int i = size - 1; i > index; i--) {
-
             array[i] = array[i - 1];
         }
+
         array[index] = element;
     }
 
     @Override
     public boolean addAll(Collection<? extends T> c) {
+        //어떠한 배열의 끝부터 차례대로 다른 배열의 0번째부터 끝까지 모든 값이 add된다.
         //Collection 타입이어야 하는데 String만 된다 String으로 한정 시킨다
         //Collection중에 String타입만 된다는 말
 
         boolean flag = true;
-
+        // 내 배열에 add하는 다른 배열의 원소 0번째부터 끝까지 하나씩 element에 넣어서
+        // add하는데 add가 하나라도 실패하면 false를 반환한다. 초기값을 true로 줫기 때문에
+        // 하나라도 false가 나오면 그때부터 다 false이다
         for (T element : c) {
-            flag &= add(element); // &= addAll을 다 넣을 건데
+            flag &= add(element);
+
         }
         return flag;
     }
@@ -92,6 +96,7 @@ public class MyList<T> implements List<T> {
 
     @Override
     public int indexOf(Object object) {
+        //찾고자 하는 것이 값이 배열의 몇번째 자리에 있는지 찾는 함수
         //생각많이 해야한다.
         //java에서 == 은 reference(주소) 랑 동격이다. 값 비교할때는 equals써야한다.
         for (int i = 0; i < size; i++) {
@@ -107,7 +112,6 @@ public class MyList<T> implements List<T> {
         //배열 기반으로 뭘 하는 건 index를 어떻게 조작하는지에 달려있다.
         //index는 경계조건으로부터 시작한다.
 
-
         return indexOf(object) != -1;
     }
 
@@ -117,7 +121,7 @@ public class MyList<T> implements List<T> {
             if (!contains(element)) return false;
         }
 
-        return false;
+        return true;
     }
 
     @Override
@@ -149,9 +153,25 @@ public class MyList<T> implements List<T> {
 
     @Override
     public T remove(int index) {
+
+        //remove가 될때마다 size변수가 -- 되기 때문에 경계 조건으로 인해 배열에 마지막 인덱스 + 1 만큼만 호출이 된다.
+
         //경계조건
         if (index < 0 || index > size)
             throw new IndexOutOfBoundsException();
+
+
+        T old = array[index];
+
+        //재정렬
+        for (int i = index + 1; i < size; i++) {
+
+            array[i - 1] = array[i];
+        }
+
+        //size는 줄어드는게 맞지만 실제 배열의 크기가 줄어드는 것은 아니다.
+        size--;
+        array[size] = null;
 
         /*if (array.length%2==0 && array.length/2 >= size){
             T[] smaller = (T[]) new Object[array.length / 2];
@@ -160,17 +180,6 @@ public class MyList<T> implements List<T> {
             array = smaller; //shallow copy 객체의 주소를 복사 반드시 있어야 한다.
         }*/
 
-        T old = array[index];
-
-        //재정렬
-        for (int i = index+1 ; i  < size; i++) {
-
-            array[i-1] = array[i];
-        }
-
-        size--;
-        array[size] = null;
-
         return old;
     }
 
@@ -178,9 +187,9 @@ public class MyList<T> implements List<T> {
     public boolean remove(Object o) {
         //Object o 와 같은 값 찾아서 삭제
 
-        for (int i = 0; i < size; i++){
+        for (int i = 0; i < size; i++) {
 
-            if (equals(o,array[i])){
+            if (equals(o, array[i])) {
                 remove(i);
                 return true;
             }
@@ -190,12 +199,14 @@ public class MyList<T> implements List<T> {
 
 
     @Override
-    public boolean removeAll(Collection<?> c)
-    {
-        for (int i = 0; i < size; i++)
-        {
-            remove(i);
+    public boolean removeAll(Collection<?> c) {
+
+        for (Object s : c) {
+            remove(s);
         }
+        clear();
+
+
         return true;
     }
 

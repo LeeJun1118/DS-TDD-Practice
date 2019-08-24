@@ -54,7 +54,9 @@ public class MyListTest {
 
         myList.remove("c");
 
-
+        assertEquals(myList.get(1),"b");
+        assertEquals(myList.get(2),null);
+        assertNotEquals(myList.get(2),"c");
         assertEquals(myList.size(),4);
 
     }
@@ -67,18 +69,21 @@ public class MyListTest {
         myList.add("World2");
         myList.add("World3");
 
-
+        myList.remove(0);
         myList.remove(2);
-        myList.remove(1);
 
-        assertEquals(myList.get(1),"World3");
+        assertEquals(myList.get(0),"World1");
+        assertEquals(myList.get(1),"World2");
+
+        //assertEquals(myList.get(2),null);
         assertEquals(myList.size(),4);
 
         System.out.println(myList.get(0));
         System.out.println(myList.get(1));
         System.out.println(myList.get(2));
         //System.out.println(myList.get(3));
-        //System.out.println(myList.get(4));
+
+        System.out.println(myList.size());
     }
 
     @Test
@@ -90,7 +95,40 @@ public class MyListTest {
         myList.add("World2");
         myList.add("World3");
 
+        myList.removeAll(myList);
 
+        myList.isEmpty();
 
     }
+
+    @Test
+    public void testMyListContainsAll(){
+
+        MyList<String> myList = new MyList<>();
+        List<String> list = new ArrayList<>();
+
+        myList.add("World0");
+        myList.add("World1");
+        myList.add("World2");
+        myList.add("World3");
+
+
+        list.add("World0");
+        list.add("World1");
+        list.add("World2");
+        list.add("World3");
+
+
+        myList.containsAll(list);
+        //list 는 최상위 List
+        //list.containsAll(myList); //  --에러 => 이건 왜 에러가 나는지 모르겠다. 자료형 문제인 것으로 어렴풋이 추측된다.
+
+        assertEquals(myList.get(0),list.get(0));
+        assertEquals(myList.get(1),list.get(1));
+        assertEquals(myList.get(2),list.get(2));
+
+        //assertEquals(myList.get(3),list.get(3));
+
+    }
+
 }
