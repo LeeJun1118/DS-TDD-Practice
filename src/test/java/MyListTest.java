@@ -134,4 +134,16 @@ public class MyListTest {
 
     }
 
+    @Test
+    public void testMyListLastIndexOf(){
+        MyList<String> myList = new MyList<>();
+
+        myList.add("World0");
+        myList.add("World1");
+        myList.add("World2");
+        myList.add("World3");
+
+        assertEquals(myList.lastIndexOf("World3"),3);
+    }
+
 }

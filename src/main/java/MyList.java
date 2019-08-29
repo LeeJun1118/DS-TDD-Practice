@@ -97,7 +97,6 @@ public class MyList<T> implements List<T> {
     @Override
     public int indexOf(Object object) {
         //찾고자 하는 것이 값이 배열의 몇번째 자리에 있는지 찾는 함수
-        //생각많이 해야한다.
         //java에서 == 은 reference(주소) 랑 동격이다. 값 비교할때는 equals써야한다.
         for (int i = 0; i < size; i++) {
             if (equals(object, array[i]))
@@ -215,11 +214,17 @@ public class MyList<T> implements List<T> {
 
     @Override
     public int lastIndexOf(Object o) {
-        return 0;
+
+        if (equals(o, array[size-1])) {
+            return indexOf(o);
+        }
+
+        return -1;
     }
 
     @Override
     public ListIterator<T> listIterator() {
+
         return null;
     }
 
